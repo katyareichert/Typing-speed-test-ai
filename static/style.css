@@ -48,22 +48,22 @@ body{
   letter-spacing: 1px;
   word-break: break-all;
 }
-.typing-text p span{
+span {
   position: relative;
 }
-.typing-text p span.correct{
+span.correct{
   color: #56964f;
 }
-.typing-text p span.incorrect{
+span.incorrect{
   color: #cb3439;
   outline: 1px solid #fff;
   background: #ffc0cb;
   border-radius: 4px;
 }
-.typing-text p span.active{
+span.active{
   color: #17A2B8;
 }
-.typing-text p span.active::before{
+span.active::before{
   position: absolute;
   content: "";
   height: 2px;
