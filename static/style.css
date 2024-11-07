@@ -62,6 +62,7 @@ span.incorrect{
 }
 span.active{
   color: #17A2B8;
+  background-color: lightgray;
 }
 span.active::before{
   position: absolute;

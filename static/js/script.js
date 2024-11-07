@@ -81,6 +81,18 @@ function initTimer() {
 }
 
 function resetGame() {
+    // Clear the keypress log on the server
+    $.ajax({
+        type: "POST",
+        url: "/clear_log",
+        success: function(response) {
+            console.log(response.message);
+        },
+        error: function(error) {
+            console.error("Error clearing log:", error);
+        }
+    });
+
     loadParagraph();
     clearInterval(timer);
     timeLeft = maxTime;
@@ -97,3 +109,28 @@ $(window).on("load", function() {
     inpField.on("input", initTyping);
     tryAgainBtn.on("click", resetGame);
 });
+
+$(document).ready(function() {
+    inpField.on("input", function(e) {
+        const typedChar = e.originalEvent.data || ""; // Get typed character
+        const timestamp = new Date().toISOString(); // Current timestamp
+
+        // Send keypress data to the server
+        $.ajax({
+            type: "POST",
+            url: "/log_keypress",
+            contentType: "application/json",
+            data: JSON.stringify({
+                key: typedChar,
+                timestamp: timestamp
+            }),
+            success: function(response) {
+                console.log("Keypress logged:", response);
+            },
+            error: function(error) {
+                console.error("Error logging keypress:", error);
+            }
+        });
+    });
+});
+
